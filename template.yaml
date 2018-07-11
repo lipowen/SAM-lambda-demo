@@ -14,3 +14,19 @@ Resources:
           Properties:
             Path: /hello
             Method: post
+  PushFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: push_channel/main
+      Runtime: go1.x
+      Timeout: 20
+      Environment:
+        Variables:
+          DB_URL: root:password@tcp(docker.for.mac.localhost)/your-database
+          TEST: Dev
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /push_channel/{id}
+            Method: post
